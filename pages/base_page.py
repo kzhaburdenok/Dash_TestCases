@@ -1,7 +1,10 @@
+from lib2to3.pgen2 import driver
+from operator import contains
 from selenium.webdriver import Remote as RemoteWebDriver # импортим ремоут вебдрайвер
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import ElementClickInterceptedException
 from selenium.webdriver.support import expected_conditions as EC
 import time
 from pages.locators import BasePageLocators
@@ -19,7 +22,7 @@ class BasePage():
         self.driver.implicitly_wait(timeout)
 
     def remove_banner(self):
-        time.sleep(5)
+        time.sleep(6)
         self.driver.find_element(*BasePageLocators.BANNER_CLOSE_ICON).click()    
 
     def is_element_present(self, how, what):
@@ -37,3 +40,20 @@ class BasePage():
         except TimeoutException:
             return True
         return False
+
+    def user_opens_the_page(self, how, what, timeout = 20):
+        global name_text, words_in_name
+        page_name_loaded = EC.element_to_be_clickable((how, what))
+        WebDriverWait(self.driver, timeout).until(page_name_loaded)
+        page_name = self.driver.find_element(how, what)
+        name_text = page_name.text
+        words_in_name = name_text.split(" ")
+        page_name.click()
+        time.sleep(2)
+
+    def user_see_the_title(self, how, what, timeout = 45):
+        title_element = EC.visibility_of_element_located((how,what))
+        WebDriverWait(self.driver, timeout).until(title_element)
+        time.sleep(10)
+        title = self.driver.find_element(how, what).text
+        assert contains(title,words_in_name[0]), f"'{name_text}' is expected, but '{title}' is displayed"
