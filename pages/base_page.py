@@ -1,23 +1,19 @@
-from lib2to3.pgen2 import driver
 from operator import contains
 from selenium.webdriver import Remote as RemoteWebDriver # импортим ремоут вебдрайвер
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import NoSuchElementException
-from selenium.common.exceptions import ElementClickInterceptedException
 from selenium.webdriver.support import expected_conditions as EC
 import time
-from pages.locators import BasePageLocators
-
+from .locators import BasePageLocators
 
 class BasePage():
-    def __init__(self, driver: RemoteWebDriver, url, timeout = 5):
-    #def __init__(self, driver, url, timeout = 5):
+    def __init__(self, driver: RemoteWebDriver, base_url, timeout = 5):
         self.driver = driver
-        self.url = url
+        self.url = base_url
         self.driver.implicitly_wait(timeout)
 
-    def open(self, timeout = 5):
+    def open(self, timeout = 10):
         self.driver.get(self.url)
         self.driver.implicitly_wait(timeout)
 

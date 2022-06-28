@@ -1,4 +1,4 @@
-from pages.locators import DownloaddataLocators
+from .locators import DownloaddataLocators
 from .base_page import BasePage
 
 class DownloadFilesPage(BasePage):

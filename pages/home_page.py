@@ -1,4 +1,4 @@
-from pages.locators import BudgetsLocators, HomePageLocators
+from .locators import BudgetsLocators, HomePageLocators
 from .base_page import BasePage
 import time
 

@@ -1,5 +1,6 @@
 from .base_page import BasePage
 from .locators import LoginPageLocators
+import time
 
 username_value = "global"
 password_value = "global"
@@ -10,3 +11,4 @@ class LoginPage(BasePage):
         self.driver.find_element(*LoginPageLocators.PASSWORD).send_keys(password_value)
         self.driver.find_element(*LoginPageLocators.REMEMBER_ME).click()
         self.driver.find_element(*LoginPageLocators.LOG_IN_BTN).click()
+        time.sleep(3)

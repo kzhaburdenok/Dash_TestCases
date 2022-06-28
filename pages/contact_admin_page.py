@@ -1,4 +1,4 @@
-from pages.locators import ContactAdminLocators
+from .locators import ContactAdminLocators
 from .base_page import BasePage
 
 class ContactAdminPage(BasePage):

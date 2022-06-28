@@ -61,6 +61,29 @@ class ShowOnesLocators():
 
 class ManageShowsLocators():
     MANAGE_SHOWS_TITLE = (By.XPATH, "//div[@class='header__title']")
+    SHOW_CARD = (By.XPATH, "//div[@class='show shows__item']")
+    MANAGE_SHOW_HEADER = (By.XPATH, "//div[@class='header__title']")
+    MANAGE_SHOWS_DATA_PAGE = (By.XPATH, "//div[@class='VDataTable page-mode full-page scrollable']")
+    FILTER_BUTTON = (By.XPATH, "//button[contains(@class, 'v-filter__toggle')]")
+    SELECT_ALL = (By.XPATH, "//li[contains(@class, 'select-all')]")
+    APPLY_BUTTON = (By.XPATH, "//div[contains(@class, 'header__btn_apply')]/child::div[contains(@class, 'VButton-block')]")
+    SHOWS_MIN_HEIGHT = (By.XPATH, "//div[contains(@style, 'min-height')]")
+    SHOWS_LINES_ON_THE_TOP = (By.XPATH, "//div[@class='vue-recycle-scroller__item-wrapper']")
+    EDIT_SHOW_TITLE = (By.XPATH, "//div[@class='edit-show__header header']")
+    SHOW_TITLE_MANAGE = (By.XPATH, "//div[contains(text(), 'Code')]/following-sibling::div[contains(@class, '')]")
+    MANAGE_ACTIVE_TAB = (By.XPATH, "//li[contains(@class, 'VTab__btn_active')]")
+    PRESELECTED_SHOW_CODE = (By.XPATH, "//div[@class ='Vheader__show']")
+    CREATE_SHOW_BUTTON = (By.XPATH, "//div[contains(@class, 'header__btn_create')]")
+    MANAGE_SHOW_TABS_LIST = (By.XPATH, "//ul[@class='VTab__controls']")
+    MANAGE_SHOW_TAB_TITLE_1 = (By.XPATH, "//div[@class='tabTitle']")
+    MANAGE_SHOW_TAB_TITLE_2 = (By.XPATH, "//span[@class='tab-title']")
+    BID_WEEKS_TAB = (By.XPATH, "//li[contains(@class, 'VTab__btn_bidWeeks')]")
+    BID_WEEKS_EMPTY_TAB = (By.XPATH, "//div[@class='empty-tab']")
+    UPLOADER_SELECTOR_BID_WEEKS_TAB = (By.XPATH, "//div[@class='uploader__selector']")
+    CREATE_SHOW_SAVE_BUTTON = (By.XPATH, "//div[contains(@class, 'footer__btn_save')]")
+    LIST_OF_NOTIFICATIONS = (By.XPATH, "//div[@class='toast toast-warning']")
+
+    
 
 class CreateNewShowLocators():
     CREATE_NEW_SHOW_TITLE = (By.XPATH, "//div[@class='header__title']")

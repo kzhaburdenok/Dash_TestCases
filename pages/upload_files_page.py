@@ -1,4 +1,4 @@
-from pages.locators import UploadDataLocators
+from .locators import UploadDataLocators
 from .base_page import BasePage
 
 class UploadFilesPage(BasePage):

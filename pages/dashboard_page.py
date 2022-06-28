@@ -1,4 +1,4 @@
-from pages.locators import ResourceManagerLocators
+from .locators import ResourceManagerLocators
 from .base_page import BasePage
 
 class DashboardPage(BasePage):

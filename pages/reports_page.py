@@ -1,4 +1,4 @@
-from pages.locators import ReportsLocators
+from .locators import ReportsLocators
 from .base_page import BasePage
 
 class ReportsPage(BasePage):
