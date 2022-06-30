@@ -47,7 +47,7 @@ class ShowsPage(BasePage):
         shows_qty = ((int(lines_qty))-1) * int(cards_qty_first_line) + int(cards_qty_in_last_line)
 
     def select_show(self):    
-        global i,selected_show
+        global i
         time.sleep(3)
         max_pg_dn = int(lines_qty)/4
         page_down_qty = random.randint(0, int(max_pg_dn))
@@ -64,7 +64,6 @@ class ShowsPage(BasePage):
             max_to_be_found = int(max_qty_of_lines_in_focus+4) * int(cards_qty_first_line)
             i = str(random.randrange(12, max_to_be_found))
         
-        selected_show = self.driver.find_element(By.XPATH, "(//div[@class='show shows__item'])["+i+"]")        
         time.sleep(6)
 
     def show_title_displaying(self,timeout = 5):   
@@ -160,10 +159,16 @@ class ShowsPage(BasePage):
         self.driver.find_element(*ManageShowsLocators.APPLY_BUTTON).click()
 
     def only_shows_of_filtered_status_displaying(self,filter):
-        for i in range (shows_qty-4, shows_qty):
-            show_status_code = self.driver.find_element(By.XPATH, f"(//div[@class='status__label'])["+str(i)+"]").text
-            time.sleep(2)
-            assert show_status_code == filter, f"Statuses are not filtered. '{filter}' is expected, but '{show_status_code}' is displayed"
+        last_line_y = int(lines_height) - 300
+        for i in range (0, last_line_y):
+            line = self.driver.find_element(By.XPATH, "//div[@style='transform: translateY("+str(i)+"px);']/child::div")
+            cards_qty_first_line = line.get_attribute('childElementCount')
+            for show in range(1, int(cards_qty_first_line)+1):
+                show_status_code = self.driver.find_element(By.XPATH, f"(//div[@class='status__label'])["+str(show)+"]").text
+                time.sleep(2)
+                assert show_status_code == filter, f"Statuses are not filtered. '{filter}' is expected, but '{show_status_code}' is displayed"
+            i+=300
+
 
     def header_counters_calculation(self, filter):
         header_counter_of_selected_filter = self.driver.find_element(By.XPATH, f"//div[@class='header__counters']/descendant::div[contains(text(), '{filter}')]").text
@@ -187,9 +192,17 @@ class ShowsPage(BasePage):
         default_tab_name = self.driver.find_element(*ManageShowsLocators.MANAGE_ACTIVE_TAB).get_attribute('innerText')
         assert default_tab_name == "Show Stats", f"tab {default_tab_name} is active instead"
 
+    def check_show_ui_displaying(self):
+        edit_show_body = self.driver.find_element(*ManageShowsLocators.EDIT_SHOW_BODY)
+        assert edit_show_body.is_displayed, "Create/Edit Show UI is not displayed on the page"
+
     def open_show_ones_page_from_show_card(self):
         self.driver.find_element(By.XPATH, "(//a[contains(text(),'Ones')])["+i+"]").click()
         time.sleep(15)
+    
+    def check_show_quota_ui_displaying(self):
+        show_quota = self.driver.find_element(*ManageShowsLocators.SHOW_ONES_QUOTA_PAGE)
+        assert show_quota.is_displayed, "Show Quota UI os not displayed on the page"
 
     def check_show_code_preselected(self):
         show_code_preselected = self.driver.find_element(*ManageShowsLocators.PRESELECTED_SHOW_CODE).get_attribute('innerText')
@@ -244,14 +257,17 @@ class ShowsPage(BasePage):
         time.sleep(3)
 
     def confirm_pop_ups_appearance_when_empty_show_saved(self):
+        notifications = []
+
+        with open("E:\\Automation\\Dash_smoke\\notifications_list.txt") as file:
+            notifications = file.read().splitlines()
+
         list_of_notifications = len(self.driver.find_elements(*ManageShowsLocators.LIST_OF_NOTIFICATIONS))
+        notifications_list = []
         for i in range(1, list_of_notifications+1):
             notification = self.driver.find_element(By.XPATH, "(//div[@class='toast toast-warning'])["+str(i)+"]").get_attribute('innerText')
-            if "mandatory" in notification:
-                assert notification, "No notification contains 'is mandatory' text"
-            if notification == "Seniority split is not equal to 100":
-                assert notification, "Check out for seniority split is missed"
-            if notification == "Show code is mandatory and must be uniq":
-                assert notification, "Notification that show code should be uniq is missed"
+            notifications_list.append(notification)
+
+        assert notifications.sort() == notifications_list.sort(), "Displayed notifications are different from expected"
 
 

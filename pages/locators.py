@@ -70,6 +70,7 @@ class ManageShowsLocators():
     SHOWS_MIN_HEIGHT = (By.XPATH, "//div[contains(@style, 'min-height')]")
     SHOWS_LINES_ON_THE_TOP = (By.XPATH, "//div[@class='vue-recycle-scroller__item-wrapper']")
     EDIT_SHOW_TITLE = (By.XPATH, "//div[@class='edit-show__header header']")
+    EDIT_SHOW_BODY = (By.XPATH, "//div[@class='edit-show__body']")
     SHOW_TITLE_MANAGE = (By.XPATH, "//div[contains(text(), 'Code')]/following-sibling::div[contains(@class, '')]")
     MANAGE_ACTIVE_TAB = (By.XPATH, "//li[contains(@class, 'VTab__btn_active')]")
     PRESELECTED_SHOW_CODE = (By.XPATH, "//div[@class ='Vheader__show']")
@@ -82,6 +83,7 @@ class ManageShowsLocators():
     UPLOADER_SELECTOR_BID_WEEKS_TAB = (By.XPATH, "//div[@class='uploader__selector']")
     CREATE_SHOW_SAVE_BUTTON = (By.XPATH, "//div[contains(@class, 'footer__btn_save')]")
     LIST_OF_NOTIFICATIONS = (By.XPATH, "//div[@class='toast toast-warning']")
+    SHOW_ONES_QUOTA_PAGE = (By.XPATH, "//div[@class='show-ones-quota']")
 
     
 

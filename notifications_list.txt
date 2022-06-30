@@ -1,0 +1,12 @@
+Primary producer is mandatory
+Awards Estimate is mandatory
+Amount of shots is mandatory
+Amount of assets is mandatory
+Show primary location is mandatory
+Show currency is mandatory
+Seniority split is not equal to 100
+Show end date is mandatory
+Show ones unit is mandatory
+Show category is mandatory
+Show color is mandatory
+Show code is mandatory and must be uniq
