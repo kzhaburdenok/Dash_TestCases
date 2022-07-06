@@ -1,7 +1,6 @@
 from operator import contains
 import random
 
-from numpy import equal
 from .locators import ManageShowsLocators
 from .base_page import BasePage
 from selenium.webdriver.common.by import By
@@ -181,20 +180,13 @@ class ShowsPage(BasePage):
         time.sleep(20)
     
     def manage_show_page_title(self):
+        time.sleep(15)
         edit_show_header = self.driver.find_element(*ManageShowsLocators.EDIT_SHOW_TITLE).get_attribute('innerText')
         assert contains(edit_show_header,"Edit Show"), "Wrong page is displayed"
 
     def name_of_open_show(self):
         show_title_in_manage_menu = self.driver.find_element(*ManageShowsLocators.SHOW_TITLE_MANAGE).get_attribute('innerText')
         assert show_title_in_manage_menu == show_code, f"another show was opened to manage, expected '{show_title_in_manage_menu}', but '{show_code}' is opened"
-
-    def check_default_tab_manage_show(self):
-        default_tab_name = self.driver.find_element(*ManageShowsLocators.MANAGE_ACTIVE_TAB).get_attribute('innerText')
-        assert default_tab_name == "Show Stats", f"tab {default_tab_name} is active instead"
-
-    def check_show_ui_displaying(self):
-        edit_show_body = self.driver.find_element(*ManageShowsLocators.EDIT_SHOW_BODY)
-        assert edit_show_body.is_displayed, "Create/Edit Show UI is not displayed on the page"
 
     def open_show_ones_page_from_show_card(self):
         self.driver.find_element(By.XPATH, "(//a[contains(text(),'Ones')])["+i+"]").click()
@@ -219,55 +211,12 @@ class ShowsPage(BasePage):
     def open_create_show_page(self):
         time.sleep(5)
         self.driver.find_element(*ManageShowsLocators.CREATE_SHOW_BUTTON).click()
-        time.sleep(15)
+        time.sleep(20)
 
-    def create_show_page_title_displaying(self):
-        edit_show_header = self.driver.find_element(*ManageShowsLocators.EDIT_SHOW_TITLE).get_attribute('innerText')
-        assert contains(edit_show_header,"Create Show"), "Wrong page is displayed"
 
-    def check_tabs_list(self):
-        list_of_tabs = ['Show Stats', 'Show Inputs', 'Avg Artist Day Rates', 'Outsource Rates', 'Bid Weeks', 'Contract Value', 'Indirect Costs', 'Internal Bid']
-        qty_tabs_1 = len(self.driver.find_elements(*ManageShowsLocators.MANAGE_SHOW_TAB_TITLE_1))
-        qty_tabs_2 = len(self.driver.find_elements(*ManageShowsLocators.MANAGE_SHOW_TAB_TITLE_2))
-        current_tabs_list = []
-        for i in range(1, qty_tabs_1+1):
-            tab_name = self.driver.find_element(By.XPATH, "(//div[@class='tabTitle'])["+str(i)+"]").get_attribute('innerText')
-            current_tabs_list.append(tab_name)
 
-        for i in range(1, qty_tabs_2+1):
-            tab_name = self.driver.find_element(By.XPATH, "(//span[@class='tab-title'])["+str(i)+"]").get_attribute('innerText')
-            current_tabs_list.append(tab_name)
+    
 
-        assert list_of_tabs.sort() == current_tabs_list.sort(), "Displayed List of tabs is different from expected list of tabs"
 
-    def check_bid_weeks_in_edit_mode(self):
-        self.driver.find_element(*ManageShowsLocators.BID_WEEKS_TAB).click()
-        time.sleep(2)
-        uploader_selector = self.driver.find_element(*ManageShowsLocators.UPLOADER_SELECTOR_BID_WEEKS_TAB)
-        assert uploader_selector.is_displayed, "Uploader selector is missed for Edit Mode"
-
-    def check_bid_weeks_in_create_mode(self):
-        self.driver.find_element(*ManageShowsLocators.BID_WEEKS_TAB).click()
-        time.sleep(2)
-        empty_tab = self.driver.find_element(*ManageShowsLocators.BID_WEEKS_EMPTY_TAB)
-        assert empty_tab.is_displayed, "Tab is not empty for Create Mode"
-
-    def save_show_button_click(self):
-        self.driver.find_element(*ManageShowsLocators.CREATE_SHOW_SAVE_BUTTON).click()
-        time.sleep(3)
-
-    def confirm_pop_ups_appearance_when_empty_show_saved(self):
-        notifications = []
-
-        with open("E:\\Automation\\Dash_smoke\\notifications_list.txt") as file:
-            notifications = file.read().splitlines()
-
-        list_of_notifications = len(self.driver.find_elements(*ManageShowsLocators.LIST_OF_NOTIFICATIONS))
-        notifications_list = []
-        for i in range(1, list_of_notifications+1):
-            notification = self.driver.find_element(By.XPATH, "(//div[@class='toast toast-warning'])["+str(i)+"]").get_attribute('innerText')
-            notifications_list.append(notification)
-
-        assert notifications.sort() == notifications_list.sort(), "Displayed notifications are different from expected"
 
 

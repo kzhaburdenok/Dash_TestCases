@@ -2,6 +2,7 @@ import pytest
 from pages.home_page import HomePage
 from pages.login_page import LoginPage
 from pages.manage_shows_page import ShowsPage
+from pages.create_show_page import CreateShowPage
 
 base_url = "http://10.94.6.100"
 
@@ -60,8 +61,9 @@ class TestManageShowsTab():
         page.open_manage_show_page()
         page.manage_show_page_title()
         page.name_of_open_show()
+        page = CreateShowPage(driver, driver.current_url)
         page.check_default_tab_manage_show()
-        page.check_edit_show_ui_displaying()
+        page.check_show_ui_displaying()
 
     def test_user_opens_ones_page_Dash_MS_0017(self, driver):
         self.link = base_url + "/ones/new/shows"
@@ -93,6 +95,7 @@ class TestManageShowsTab():
         page = ShowsPage(driver, self.link)
         page.open()
         page.open_create_show_page()
+        page = CreateShowPage(driver, driver.current_url)  
         page.create_show_page_title_displaying()
         page.check_default_tab_manage_show()
 
@@ -104,7 +107,8 @@ class TestManageShowsTab():
         page.count_lines_qty()
         page.count_cards_qty_first_line()
         page.select_show()    
-        page.open_manage_show_page()    
+        page.open_manage_show_page()  
+        page = CreateShowPage(driver, driver.current_url)  
         page.check_tabs_list()    
         page.check_bid_weeks_in_edit_mode()
         page.check_show_ui_displaying()
@@ -113,7 +117,8 @@ class TestManageShowsTab():
         self.link = base_url + "/ones/new/shows"
         page = ShowsPage(driver, self.link)
         page.open()
-        page.open_create_show_page()   
+        page.open_create_show_page()  
+        page = CreateShowPage(driver, driver.current_url) 
         page.check_tabs_list()    
         page.check_bid_weeks_in_create_mode()
 
@@ -122,6 +127,7 @@ class TestManageShowsTab():
         page = ShowsPage(driver, self.link)
         page.open()
         page.open_create_show_page() 
+        page = CreateShowPage(driver, driver.current_url)
         page.save_show_button_click()
         page.confirm_pop_ups_appearance_when_empty_show_saved()
         page.check_show_ui_displaying()
